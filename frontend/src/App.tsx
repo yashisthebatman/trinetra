@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet, Navigate} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // Pages
 import LoginPage from './pages/LoginPage'
@@ -15,19 +15,7 @@ import AdminPage from './pages/AdminPage'
 import NotFound from './pages/NotFound'
 import FileManagerCategoryPage from './pages/FileManagerCategoryPage'
 import DocumentMockViewPage from './pages/DocumentMockViewPage'
-import Sidebar from './components/Sidebar'
-
-
-function Layout() {
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', minHeight: '100vh' }}>
-      <Sidebar />
-      <main>
-        <Outlet />
-      </main>
-    </div>
-  )
-}
+import MainLayout from './layouts/MainLayout' // <-- Import MainLayout
 
 // Layouts & Routes
 import ProtectedRoute from './components/ProtectedRoute'
@@ -43,7 +31,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Layout />,
+        element: <MainLayout />, // <-- Use MainLayout here
         children: [
           { index: true, element: <HomePage /> },
           { path: 'file-manager', element: <FileManagerPage /> },
@@ -57,7 +45,6 @@ export const router = createBrowserRouter([
           { path: 'upload', element: <UploadPage /> },
           { path: 'search', element: <SearchPage /> },
           { path: 'admin', element: <AdminPage /> },
-          { path: 'home', element: <Navigate to="/" replace /> },
           { path: '*', element: <NotFound /> },
         ],
       },

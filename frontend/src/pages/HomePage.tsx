@@ -1,6 +1,7 @@
 import React from 'react'
 import BarChart from '../components/BarChart'
 import DonutChart from '../components/DonutChart'
+import { countByCategory } from '../mock/mockDocuments';
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
@@ -29,35 +30,39 @@ function Pill({ text, color }: { text: string; color: string }) {
 }
 
 export default function HomePage() {
-  // Mock data (no API calls)
+  // Use real data from mock files
+  const categoryCounts = countByCategory();
   const weekLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  const weekCounts = [4, 3, 5, 2, 7, 1, 4] // matches S12 visual
+  const weekCounts = [4, 3, 5, 2, 7, 1, 4]
   const categories = [
-    { label: 'Finance', value: 14, color: '#3b82f6' },    // blue
-    { label: 'HR Policy', value: 6, color: '#f97316' },   // orange
-    { label: 'Safety', value: 9, color: '#22c55e' },      // green
-    { label: 'Technical', value: 7, color: '#eab308' },   // amber
-  ]
+    { label: 'Finance', value: categoryCounts['Finance'], color: '#3b82f6' },
+    { label: 'Safety', value: categoryCounts['Safety'], color: '#ef4444' },
+    { label: 'Legal', value: categoryCounts['Legal/Compliance'], color: '#f97316' },
+    { label: 'Analytics', value: categoryCounts['Analytics'], color: '#8b5cf6' },
+    { label: 'Contract', value: categoryCounts['Contract'], color: '#eab308' },
+    { label: 'Other', value: categoryCounts['Technical'] + categoryCounts['HR'], color: '#64748b' },
+  ].filter(c => c.value > 0);
+
   const criticalItems = [
     {
-      title: 'Safety Bulletin: Emergency Shutdown Procedure Update',
-      summary: 'Immediate update to shutdown protocols for all Series‑7 machinery. Action required by all plant supervisors within 48 hours.',
-      tag: 'Safety Bulletin',
-      tagColor: '#fb7185', // rose
+      title: 'Quarterly Performance Report (Q1 FY 2025-26)',
+      summary: 'Daily average ridership reached 215,000 passengers, a 12% YoY increase. The debt servicing ratio is strong at 1.45.',
+      tag: 'Finance',
+      tagColor: '#3b82f6',
       age: '2 Days Ago',
     },
     {
-      title: 'Vendor Contract Renewal – Critical Deadline Approaching',
-      summary: 'The master services agreement with OmniCorp expires in 15 days. Finance team must review and approve renewal terms.',
-      tag: 'Contract',
-      tagColor: '#60a5fa', // blue
+      title: 'Safety Incident Report: Escalator Malfunction',
+      summary: 'A minor incident occurred involving an escalator at Palarivattom. A system-wide check of all "Model-B" units is recommended.',
+      tag: 'Safety',
+      tagColor: '#ef4444',
       age: '3 Days Ago',
     },
     {
-      title: 'Q3 Financial Compliance Report – Final Draft',
-      summary: 'Final draft of the quarterly compliance report for board review. Contains audited figures and risk assessments.',
-      tag: 'Finance',
-      tagColor: '#fde047', // yellow
+      title: 'MoHUA Directive on Green Energy Standards',
+      summary: 'Mandates 60% renewable energy use by 2030 and rooftop solar panel installation by 2027. Non-compliance penalties up to ₹5 crore.',
+      tag: 'Legal/Compliance',
+      tagColor: '#f97316',
       age: '5 Days Ago',
     },
   ]
@@ -77,14 +82,14 @@ export default function HomePage() {
         marginBottom: 16
       }}>
         <BarChart
-  title="Documents Processed This Week"
-  labels={weekLabels}
-  data={weekCounts}
-  barColor="#60a5fa"
-  height={220}
-  animate
-  max={8}
-/>
+          title="Documents Processed This Week"
+          labels={weekLabels}
+          data={weekCounts}
+          barColor="#60a5fa"
+          height={220}
+          animate
+          max={8}
+        />
         <DonutChart
           title="Document Categories"
           slices={categories}
@@ -116,9 +121,9 @@ export default function HomePage() {
                 <div style={{ fontWeight: 700, marginBottom: 6 }}>{it.title}</div>
                 <div style={{ color: '#94a3b8' }}>{it.summary}</div>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 24 }}>
                 <Pill text={it.tag} color={it.tagColor} />
-                <div style={{ color: '#94a3b8', fontSize: 12 }}>{it.age}</div>
+                <div style={{ color: '#94a3b8', fontSize: 12, whiteSpace: 'nowrap' }}>{it.age}</div>
               </div>
             </div>
           ))}

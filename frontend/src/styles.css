@@ -134,18 +134,18 @@ body {
   flex-grow: 1;
   padding: 32px;
   overflow-y: auto;
+  position: relative;
 }
 
 /* === NEW CHAT INTERFACE STYLES === */
 
-.chat-layout {
+.chat-page-container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-height: calc(100vh - 64px); /* Full height minus padding */
 }
 
-.chat-layout .header {
+.chat-page-container .header {
   flex-shrink: 0;
 }
 
@@ -248,4 +248,26 @@ body {
   0% { box-shadow: 0 0 0 0 rgba(234,179,8,.45); }
   70% { box-shadow: 0 0 0 8px rgba(234,179,8,0); }
   100% { box-shadow: 0 0 0 0 rgba(234,179,8,0); }
+}
+
+/* Google Translate Widget Styling */
+.skiptranslate {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+.goog-te-gadget-simple {
+  background-color: rgba(2,6,23,0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  padding: 8px !important;
+  border-radius: 8px !important;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+}
+.goog-te-gadget-simple span {
+  color: #cbd5e1 !important;
+}
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  display: none !important; /* Hides the "Powered by Google Translate" tooltip */
 }
