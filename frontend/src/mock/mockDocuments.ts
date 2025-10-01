@@ -5,7 +5,7 @@ export type MockDoc = {
   status: 'COMPLETED' | 'PENDING'
   uploadDate: string
   source: 'Direct Upload' | 'WhatsApp Bot' | 'Email Import' | 'Complaint Report'
-  category: 'Safety' | 'Finance' | 'Technical' | 'Contract' | 'HR' | 'Legal/Compliance' | 'Analytics'
+  category: 'Safety' | 'Finance' | 'Technical' | 'Contract' | 'HR' | 'Legal/Compliance' | 'Analytics' | 'Issues' | 'Others'
   importance: 'Critical' | 'High' | 'Medium' | 'Low';
   isCritical: boolean
   title?: string
@@ -177,12 +177,12 @@ export const mockDocuments: Record<string, MockDoc> = {
 };
 
 export const categoriesOrder: Array<MockDoc['category']> = [
-  'Safety', 'Finance', 'Technical', 'Contract', 'HR', 'Legal/Compliance', 'Analytics'
+  'Safety', 'Finance', 'Technical', 'Contract', 'HR', 'Legal/Compliance', 'Analytics', 'Issues', 'Others'
 ];
 
 export function countByCategory() {
   const counts: Record<string, number> = {
-    Safety: 0, Finance: 0, Technical: 0, Contract: 0, HR: 0, 'Legal/Compliance': 0, Analytics: 0
+    Safety: 0, Finance: 0, Technical: 0, Contract: 0, HR: 0, 'Legal/Compliance': 0, Analytics: 0, Issues: 0, Others: 0
   }
   Object.values(mockDocuments).forEach(d => {
     if (counts[d.category] !== undefined) {

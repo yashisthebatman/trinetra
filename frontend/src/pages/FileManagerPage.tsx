@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { categoriesOrder, countByCategory } from '../mock/mockDocuments'
+import { countByCategory, categoriesOrder } from '../mock/mockDocuments'
 
 export default function FileManagerPage() {
   const counts = countByCategory()
@@ -15,7 +15,7 @@ export default function FileManagerPage() {
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
         gap: 16
       }}>
-        {categoriesOrder.map(cat => (
+        {categoriesOrder.map((cat) => (
           <Link
             key={cat}
             to={`/file-manager/${encodeURIComponent(cat)}`}
@@ -37,7 +37,7 @@ export default function FileManagerPage() {
             }} />
             <div>
               <div style={{ fontWeight: 700 }}>{cat}</div>
-              <div style={{ color: '#94a3b8', fontSize: 12 }}>{counts[cat]} documents</div>
+              <div style={{ color: '#94a3b8', fontSize: 12 }}>{counts[cat] || 0} documents</div>
             </div>
           </Link>
         ))}
